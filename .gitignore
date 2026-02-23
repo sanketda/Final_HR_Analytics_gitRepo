@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Data & Database (Medallion layers)
+delta_lake/
+*.db
+*.sqlite
+
+# Airflow/Docker
+my_airflow/logs/
+my_airflow/jars/
+my_airflow/.env
+my_airflow/dags/utils/mysql-connector-j-8.0.33.jar
+my_airflow/mysql-connector-java-5.1.49.jar
+
+# Temporary files
+temp/
+/tmp/
+
+# Test Reports
+**/*.html
+.pytest_cache/
+**/__pycache__/
+
+# Environment
+.venv/
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store

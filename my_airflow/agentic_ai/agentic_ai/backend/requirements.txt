@@ -1,0 +1,15 @@
+Flask
+python-dotenv
+requests
+pandas
+psycopg2-binary  
+langgraph
+langchain-groq
+langchain-core
+SQLAlchemy
+psycopg2
+pyngrok
+celery
+redis
+python-dotenv
+pyspark

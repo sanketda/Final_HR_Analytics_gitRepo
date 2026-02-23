@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "databricks-pipeline-monitoring-system"
+version = "0.1.0"
+description = "Databricks monitoring + data-quality tools"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Your Name" }]
+
+# If you want to pin runtime deps for the library itself, add them here:
+# dependencies = [
+#   "fastapi",
+#   "celery",
+#   ...
+# ]
+
+[project.optional-dependencies]
+# Dev-only helpers (optional)
+dev = [
+  "pytest",
+  "pytest-cov",
+  "ruff",
+  "mypy",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+# Tell setuptools that packages live under src/
+[tool.setuptools.package-dir]
+"" = "src"
+
+# Auto-discover packages under src/, including subpackages
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["databricks_monitoring*", "data_quality*"]
+
+# Optional: keep tests discovery tidy when running `pytest` from project root
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

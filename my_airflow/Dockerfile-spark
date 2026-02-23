@@ -1,0 +1,49 @@
+# Use Bitnami's Spark image for version 3.5.3
+FROM bitnami/spark:3.5.3
+ 
+# Set the working directory inside the container
+WORKDIR /opt/spark-app
+ 
+USER root
+ 
+COPY wordcount.py requirements.txt docker-compose.yml /opt/spark-app/
+ 
+# Copy JAR files to Spark's jars directory
+COPY jars/*.jar /opt/bitnami/spark/jars/
+ 
+# Add Hadoop binaries to the container
+COPY hadoop /opt/hadoop 
+ 
+# Set environment variables for Hadoop
+ENV HADOOP_HOME=/opt/hadoop
+ENV PATH=$HADOOP_HOME/bin:$PATH
+
+
+ 
+# set the java_home
+ENV JAVA_HOME=/opt/bitnami/java
+ENV PATH=$JAVA_HOME/bin:$PATH
+
+
+COPY include /opt/spark-app/include 
+
+RUN pip install pymysql==1.1.1
+
+RUN pip install -r /opt/spark-app/requirements.txt
+
+Run pip install xlrd==1.2.0
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

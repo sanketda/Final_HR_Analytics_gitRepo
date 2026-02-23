@@ -1,0 +1,51 @@
+stages:
+  - test
+  - build
+
+variables:
+  IMAGE_NAME: "hrishikeshsty/sty-databricks-pipeline-monitoring-system"
+  IMAGE_TAG: "v1"
+
+
+
+test:
+  stage: test
+  image: python:3.11-slim
+  before_script:
+    - python -m pip install --upgrade pip
+    - pip install -r src/databricks_monitoring/API/requirements.txt
+    - pip install -r src/databricks_monitoring/webhook_diagnosis/requirements.txt
+    - pip install simplejson pytest pytest-mock
+    - export CELERY_BROKER_URL="memory://"
+    - export CELERY_RESULT_BACKEND="cache+memory://"
+    - cp "$PROD_NEW_ENV_FILE" .env
+  script:
+
+    - python -m pytest -v --disable-warnings --junitxml=junit-report.xml tests
+  artifacts:
+    when: always
+    reports:
+      junit: junit-report.xml
+    paths:
+      - junit-report.xml
+    expire_in: 1 week
+
+
+build_image_and_push:
+  stage: build
+  image: docker:28.3.3
+  services:
+    - name: docker:28.3.3-dind
+
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+    DOCKER_HOST: "tcp://docker:2376"
+    DOCKER_CERT_PATH: "/certs/client"
+    DOCKER_TLS_VERIFY: "1"
+  needs: ["test"]
+  before_script:
+    - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+  script:
+    - docker compose -f docker_compose/build.yml build
+    - docker compose -f docker_compose/build.yml push
+

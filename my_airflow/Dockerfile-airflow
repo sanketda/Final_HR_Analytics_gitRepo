@@ -1,0 +1,85 @@
+# Use the official Apache Airflow image
+FROM apache/airflow:2.10.5
+
+# Switch to root user to install system dependencies
+USER root
+
+# Install Java and essential utilities
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jdk procps net-tools && \
+    mkdir -p /opt/bitnami && \
+    ln -s /usr/lib/jvm/java-17-openjdk-amd64 /opt/bitnami/java && \
+    apt-get clean
+
+# Set environment variables (don't set SPARK_HOME here - it comes from compose)
+ENV JAVA_HOME=/opt/bitnami/java
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
+
+
+
+# Switch back to airflow user
+USER airflow
+
+# Add webhook folder to Python path
+ENV PYTHONPATH="${PYTHONPATH}:/opt/airflow/webhook"
+
+# Install FastAPI and related packages
+RUN pip install --no-cache-dir fastapi uvicorn pyngrok python-dotenv
+
+RUN pip install --no-cache-dir fastapi uvicorn
+
+# Install Airbyte provider for Airflow
+RUN pip install --no-cache-dir "apache-airflow[airbyte]"
+
+# Install PostgreSQL adapter
+RUN pip install --no-cache-dir psycopg2-binary
+
+# Copy requirements.txt file
+COPY requirements.txt /tmp/requirements.txt
+
+RUN pip install pymysql
+RUN pip install apache-airflow-providers-docker 
+
+
+
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+# Install additional Airflow providers and Spark dependencies
+RUN pip install --no-cache-dir \
+    apache-airflow-providers-apache-spark \
+    pyspark
+
+# ----------------------------------------------------
+# ONLY THESE TWO NEW LINES ADDED FOR YOUR EXCEL ISSUE
+# ----------------------------------------------------
+RUN pip install --no-cache-dir xlrd==2.0.1
+RUN pip install --no-cache-dir openpyxl
+
+# ---- OpenTelemetry Core ----
+RUN pip install \
+    opentelemetry-distro \
+    opentelemetry-exporter-otlp
+
+# ---- Python Auto-Instrumentation ----
+RUN pip install \
+    opentelemetry-instrumentation \
+    opentelemetry-instrumentation-requests \
+    opentelemetry-instrumentation-logging \
+    opentelemetry-instrumentation-urllib3 \
+    opentelemetry-instrumentation-sqlalchemy \
+    opentelemetry-instrumentation-psycopg2
+
+# Auto-enable detected instrumentations
+RUN opentelemetry-bootstrap -a install
+
+# This is added through container bash
+# RUN pip install \
+#     "apache-airflow[otel]==2.10.5" \
+#     opentelemetry-api \
+#     opentelemetry-sdk \
+#     opentelemetry-exporter-otlp \
+#     opentelemetry-instrumentation-requests \
+#     opentelemetry-instrumentation-flask

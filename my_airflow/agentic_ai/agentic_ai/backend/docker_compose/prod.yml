@@ -1,0 +1,49 @@
+services:
+  redis:
+    image: redis:7-alpine
+    env_file:
+      - .env
+
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]  
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    volumes:
+      - redis-data:/data
+
+  webhook:
+    image: hrishikeshsty/sty-databricks-pipeline-monitoring-system:webhook-celery
+    env_file:
+      - .env
+    command: ["uvicorn","webhook:app","--host","0.0.0.0","--port","5000"]
+
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "5121:5000"
+
+  api:
+    image: hrishikeshsty/sty-databricks-pipeline-monitoring-system:api
+    env_file:
+      - .env
+
+    ports:
+      - "8121:8000"
+
+  worker:
+    image: hrishikeshsty/sty-databricks-pipeline-monitoring-system:webhook-celery
+    env_file:
+      - .env
+
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: ["celery", "-A", "celery_worker:celery", "worker", "-l", "info"]
+
+volumes:
+  redis-data:
