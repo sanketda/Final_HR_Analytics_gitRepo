@@ -1,0 +1,13 @@
+**/__pycache__/
+*.pyc
+
+venv/
+backendvenv/
+.env
+*.csv
+*.json
+
+databricks.yml
+*.DS_Store
+tempCodeRunnerFile*
+

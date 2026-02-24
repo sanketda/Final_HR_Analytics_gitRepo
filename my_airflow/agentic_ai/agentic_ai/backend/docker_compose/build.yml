@@ -1,0 +1,12 @@
+services:
+  webhook-diagnose:
+    build:
+      context: ../src/databricks_monitoring/webhook_diagnosis 
+      dockerfile: Dockerfile
+    image: hrishikeshsty/sty-databricks-pipeline-monitoring-system:webhook-celery
+
+  api:
+    build:
+      context: ../src/databricks_monitoring/API                  
+      dockerfile: Dockerfile
+    image: hrishikeshsty/sty-databricks-pipeline-monitoring-system:api

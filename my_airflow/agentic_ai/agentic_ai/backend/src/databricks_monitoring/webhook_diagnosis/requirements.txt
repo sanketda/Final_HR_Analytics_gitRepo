@@ -1,0 +1,14 @@
+fastapi
+python-dotenv
+requests
+pandas
+psycopg2-binary  
+langgraph
+langchain-groq
+langchain-core
+SQLAlchemy
+pyngrok
+celery
+redis
+python-dotenv
+uvicorn
