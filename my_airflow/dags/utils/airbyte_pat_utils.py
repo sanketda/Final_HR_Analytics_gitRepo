@@ -2,10 +2,12 @@
 import requests
 from airflow.models import Variable
 
+import os
+
 AIRBYTE_SERVER = "https://airbyte.inteliconvo.com"
 
-CLIENT_ID = "741ad24f-6e19-4251-872f-19f4c650b9a9"
-CLIENT_SECRET = "pw78xYVoyJ41wmsV58K9frXlbIpEO5wi"
+CLIENT_ID = os.getenv("AIRBYTE_CLIENT_ID", "REPLACED_SECRET")
+CLIENT_SECRET = os.getenv("AIRBYTE_CLIENT_SECRET", "REPLACED_SECRET")
 
 # Airflow Variable key
 VAR_KEY = "AIRBYTE_PAT"

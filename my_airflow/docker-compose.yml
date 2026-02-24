@@ -83,6 +83,7 @@ services:
       # RESOURCE_ATTRIBUTES=env=dev,system=zoho
     env_file:
       - ./agentic_ai/agentic_ai/backend/docker_compose/.env
+      - ../.env
     volumes:
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/dags:/opt/airflow/dags
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/logs:/opt/airflow/logs
@@ -131,6 +132,7 @@ services:
 
     env_file:
       - ./agentic_ai/agentic_ai/backend/docker_compose/.env
+      - ../.env
     volumes:
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/dags:/opt/airflow/dags
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/logs:/opt/airflow/logs
@@ -178,6 +180,7 @@ services:
 
     env_file:
       - ./agentic_ai/agentic_ai/backend/docker_compose/.env
+      - ../.env
     volumes:
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/dags:/opt/airflow/dags
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/logs:/opt/airflow/logs
@@ -222,6 +225,7 @@ services:
       
     env_file:
       - ./agentic_ai/agentic_ai/backend/docker_compose/.env
+      - ../.env
     volumes:
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/dags:/opt/airflow/dags
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/logs:/opt/airflow/logs
@@ -256,6 +260,7 @@ services:
 
     env_file:
       - ./agentic_ai/agentic_ai/backend/docker_compose/.env
+      - ../.env
     volumes:
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/dags:/opt/airflow/dags
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/logs:/opt/airflow/logs

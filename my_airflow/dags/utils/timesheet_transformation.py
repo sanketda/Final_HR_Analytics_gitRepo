@@ -178,8 +178,9 @@ def run_zoho_timesheet_transform():
         df_new = df_final.join(existing_keys_df, "timelog_id", "left_anti")
 
         if not df_new.rdd.isEmpty():
+            records_to_insert = df_new.count()
             job.write_to_mysql(df_new, MYSQL_TABLE)
-            logger.info(f"✅ {df_new.count()} new timesheet records inserted into MySQL from Gold layer")
+            logger.info(f"✅ {records_to_insert} new timesheet records inserted into MySQL from Gold layer")
 
         # 7. Archive
         job.archive_files(file_list, RAW_PATH, PASSED_PATH)
