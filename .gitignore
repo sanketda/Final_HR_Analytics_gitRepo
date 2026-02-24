@@ -13,6 +13,7 @@ delta_lake/
 my_airflow/logs/
 my_airflow/jars/
 my_airflow/.env
+.env
 my_airflow/dags/utils/mysql-connector-j-8.0.33.jar
 my_airflow/mysql-connector-java-5.1.49.jar
 
