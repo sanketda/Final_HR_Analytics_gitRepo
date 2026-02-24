@@ -9,6 +9,29 @@ from pyspark.sql import SparkSession
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+def load_env_file():
+    """Manually load .env file if it exists in expected locations."""
+    possible_paths = [
+        os.path.join(os.getcwd(), ".env"),
+        os.path.join(os.path.dirname(__file__), ".env"),
+        os.path.join(os.path.dirname(__file__), "../../../.env"), 
+        os.path.join(os.path.dirname(__file__), "../../.env"),
+        "/opt/airflow/.env"
+    ]
+    for path in possible_paths:
+        if os.path.exists(path):
+            logger.info(f"Loading environment from {path}")
+            with open(path) as f:
+                for line in f:
+                    if line.strip() and not line.startswith("#"):
+                        key, value = line.strip().split("=", 1)
+                        os.environ[key] = value
+            return
+    logger.warning("No .env file found in expected locations.")
+
+# Load env immediately
+load_env_file()
+
 class SharedTransformationJob:
     """
     A shared utility class to handle common Data Engineering tasks:
@@ -37,7 +60,7 @@ class SharedTransformationJob:
         self.mysql_port = "3308"
         self.mysql_db = "timeTracke_Dev"
         self.mysql_user = "root"
-        self.mysql_password = os.getenv("MYSQL_PASSWORD", "REPLACED_SECRET")
+        self.mysql_password = os.getenv("MYSQL_PASSWORD", "shyenatech")
         
         # Path to JDBC Jar - derived from checking existing code
         self.jdbc_jar = "/opt/airflow/dags/utils/mysql-connector-j-8.0.33.jar"
