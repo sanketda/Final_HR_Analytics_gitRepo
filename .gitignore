@@ -25,6 +25,9 @@ temp/
 **/*.html
 .pytest_cache/
 **/__pycache__/
+.coverage
+pytest_report.txt
+standard_test_report.txt
 
 # Environment
 .venv/

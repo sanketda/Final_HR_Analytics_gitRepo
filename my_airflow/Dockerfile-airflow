@@ -58,6 +58,9 @@ RUN pip install --no-cache-dir \
 RUN pip install --no-cache-dir xlrd==2.0.1
 RUN pip install --no-cache-dir openpyxl
 
+# ETL Testing Dependencies
+RUN pip install --no-cache-dir pytest pytest-html
+
 # ---- OpenTelemetry Core ----
 RUN pip install \
     opentelemetry-distro \
