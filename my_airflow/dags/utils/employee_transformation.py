@@ -287,7 +287,7 @@ def run_employee_transform():
             if os.path.exists(gold_path.replace("file://", "")):
                 dt = DeltaTable.forPath(job.spark, gold_path)
                 dt.update(
-                    condition=f"employee_id IN ({','.join([f'\'{x}\'' for x in expire_list])}) AND is_current = 1",
+                    condition=f"employee_id IN ({','.join([chr(39) + x + chr(39) for x in expire_list])}) AND is_current = 1",
                     set={"is_current": lit(0), "valid_to": current_timestamp()}
                 )
                 logger.info(f"Expired {len(expire_list)} old records in Gold (Delta).")

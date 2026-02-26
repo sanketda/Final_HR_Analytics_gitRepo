@@ -65,6 +65,10 @@ class SharedTransformationJob:
         # Path to JDBC Jar - derived from checking existing code
         self.jdbc_jar = "/opt/airflow/dags/utils/mysql-connector-j-8.0.33.jar"
 
+        # Physical storage base path — must match what is registered in Unity Catalog via REST API.
+        # Ensure ADLS Gen2 path for Delta Lake storage (ABFS)
+        self.DELTA_BASE = f"abfss://{self.container_name}@{self.account_name}.dfs.core.windows.net/delta_lake/hr_analytics"
+
         self.spark = self._create_spark_session()
         self.container_client = self._get_container_client()
         self._ensure_schemas()
@@ -98,8 +102,9 @@ class SharedTransformationJob:
             # Unity Catalog alias - must be 'hr_analytics' to match all SQL references
             .config("spark.sql.catalog.hr_analytics", "io.unitycatalog.spark.UCSingleCatalog")
             .config("spark.sql.catalog.hr_analytics.uri", "http://unity-catalog:8080")
-            # Azure Blob Storage Configuration (WASBS)
+            # Azure Blob Storage & ADLS Gen2 Configuration (WASBS + ABFS)
             .config(f"fs.azure.account.key.{self.account_name}.blob.core.windows.net", self.credential)
+            .config(f"fs.azure.account.key.{self.account_name}.dfs.core.windows.net", self.credential)
             .config("fs.wasbs.impl", "org.apache.hadoop.fs.azure.NativeAzureFileSystem")
             .config("fs.azure", "org.apache.hadoop.fs.azure.NativeAzureFileSystem")
         )
@@ -370,7 +375,7 @@ class SharedTransformationJob:
 
     # Physical storage base path — must match what is registered in Unity Catalog via REST API.
     # Each table's storage_location = DELTA_BASE / {schema} / {table_name}
-    DELTA_BASE = "file:///home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev/delta_lake/hr_analytics"
+    # MOVED to __init__: self.DELTA_BASE = "abfss://..."
 
     def _write_to_layer(self, df, layer, table_name, mode, extra_options=None):
         """

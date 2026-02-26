@@ -86,6 +86,7 @@ services:
       - ../.env
     volumes:
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/dags:/opt/airflow/dags
+      - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev/tests:/opt/airflow/tests
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/logs:/opt/airflow/logs
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/plugins:/opt/airflow/plugins
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/include:/opt/airflow/include
@@ -135,6 +136,7 @@ services:
       - ../.env
     volumes:
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/dags:/opt/airflow/dags
+      - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev/tests:/opt/airflow/tests
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/logs:/opt/airflow/logs
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/plugins:/opt/airflow/plugins
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/include:/opt/airflow/include
@@ -183,6 +185,7 @@ services:
       - ../.env
     volumes:
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/dags:/opt/airflow/dags
+      - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev/tests:/opt/airflow/tests
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/logs:/opt/airflow/logs
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/plugins:/opt/airflow/plugins
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/include:/opt/airflow/include
@@ -228,6 +231,7 @@ services:
       - ../.env
     volumes:
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/dags:/opt/airflow/dags
+      - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev/tests:/opt/airflow/tests
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/logs:/opt/airflow/logs
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/plugins:/opt/airflow/plugins
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/include:/opt/airflow/include
@@ -263,6 +267,7 @@ services:
       - ../.env
     volumes:
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/dags:/opt/airflow/dags
+      - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev/tests:/opt/airflow/tests
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/logs:/opt/airflow/logs
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/plugins:/opt/airflow/plugins
       - /home/mount_disk/Eclassifier-workspace/Data-engineer-airflow/hr_analytics_dev//my_airflow/include:/opt/airflow/include
